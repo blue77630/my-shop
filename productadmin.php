@@ -1,6 +1,15 @@
 <?php
 require_once 'connection.php';
 
+//** Supprimer un produit (à placer tout en haut du fichier) */
+if (isset($_GET['delete']) && isset($_GET['menu']) && $_GET['menu'] === 'products') {
+    //header('Location: admin.php?menu=products');
+    $id = intval($_GET['delete']);
+    $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
+    $stmt->execute([$id]);
+    //exit;
+}
+
 //** Ajouter un produit */
 if (isset($_POST['add'])) {
     $name = trim($_POST['name']);
@@ -11,13 +20,6 @@ if (isset($_POST['add'])) {
         $stmt = $pdo->prepare("INSERT INTO products (name, description, price, image) VALUES (?, ?, ?, ?)");
         $stmt->execute([$name, $description, $price, $image]);
     }
-}
-
-//** Supprimer un produit */
-if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
-    $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
-    $stmt->execute([$id]);
 }
 
 //** Modifier un produit */
@@ -68,7 +70,7 @@ $products = $stmt->fetchAll();
             <td>
                     <button type="submit" name="edit">Modifier</button>
                 </form>
-                <a href="?delete=<?= $p['id'] ?>" onclick="return confirm('Supprimer ce produit ?')">Supprimer</a>
+                <a href="admin.php?menu=products&delete=<?= $p['id'] ?>" onclick="return confirm('Supprimer ce produit ?')">Supprimer</a>
             </td>
         </tr>
     <?php endforeach; ?>
