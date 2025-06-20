@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = $user->login($username, $password);
 
     if ($message === "Connexion réussie !") {
-        // Redirige selon le type d'utilisateur
         if ($_SESSION['is_admin']) {
             header('Location: admin.php');
         } else {
