@@ -47,7 +47,6 @@ class User
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-            session_start();
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['is_admin'] = $user['admin'] ?? 0;
             return "Connexion réussie !";
