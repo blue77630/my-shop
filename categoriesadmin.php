@@ -50,8 +50,7 @@ $categories = $stmt->fetchAll();
                 </form>
             </td>
             <td>
-                <a href="?delete=<?= $cat['id'] ?>" onclick="return confirm('Supprimer cette catégorie ?')">Supprimer</a>
-            </td>
+                <a href="admin.php?menu=categories&delete=<?= $cat['id'] ?>" onclick="return confirm('Supprimer cette catégorie ?')">Supprimer</a>
         </tr>
     <?php endforeach; ?>
 </table>
